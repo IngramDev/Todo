@@ -1,0 +1,113 @@
+class TodoItem{
+    constructor(pID,pTitle, pDescription){
+        this._id = pID
+        this.title = pTitle
+        this.description = pDescription
+        this.isChecked = false        
+    }
+    toggleCheckmark(){
+        this.isChecked = !this.isChecked
+    }
+}
+
+class Todo {
+    constructor(){
+        this.todo_items = []
+    }
+    create_Item(title, description){
+        let new_item = new TodoItem(this.todo_items.length+1,title,description)
+        this.todo_items.push(new_item)
+    }
+    display_Todo_Item(pTodoItem){
+        // Create container element
+        let new_container = document.createElement("div")
+        new_container.classList.add("todo-item")
+        // Add 'done' class if the todo item is completed
+        if(pTodoItem.isChecked){
+            new_container.classList.add("done")
+        }            
+
+        // Get todo_item elements
+        let new_checkbox = this.create_Checkbox()
+        let new_content = this.create_body(pTodoItem)
+        let new_delete = this.creat_Delete_Icon()
+
+        // Add Element ID to Todo Item Container
+        new_container.setAttribute("id",pTodoItem._id)
+
+        // add elements to container divs
+        new_container.appendChild(new_checkbox)
+        new_container.appendChild(new_content)
+        new_container.appendChild(new_delete)
+
+        return new_container
+    }
+    display_Todo_List(){
+        const todo_list_element = document.getElementById("todo-list")
+        this.clear_Todo_List()
+        this.todo_items.forEach((element, index, array)=>{
+            const next_item = this.display_Todo_Item(element)
+            todo_list_element.appendChild(next_item)
+        })
+    }
+    clear_Todo_List(){
+        const todo_list_element = document.getElementById("todo-list")
+        while (todo_list_element.firstChild) {
+            todo_list_element.firstChild.remove()
+        }
+    }
+    
+    create_Checkbox(){     
+        //create Font Awesome Icon
+        const checkbox_icon = document.createElement("i")
+        checkbox_icon.classList.add("fa-regular")
+        checkbox_icon.classList.add("fa-square")
+        
+        //Create Checkbox Div 
+        const checkbox_div = document.createElement("div")
+        checkbox_div.classList.add("todo-checkmark")
+        checkbox_div.appendChild(checkbox_icon)
+        
+        return checkbox_div
+    }
+
+    creat_Delete_Icon(){
+        //create Font Awesome Icon
+        const delete_icon = document.createElement("i")
+        delete_icon.classList.add("fa-solid")
+        delete_icon.classList.add("fa-trash-can")
+
+        //Create Checkbox Div 
+        const delete_div = document.createElement("div")
+        delete_div.classList.add("todo-delete")
+        delete_div.appendChild(delete_icon)
+
+        return delete_div
+    }
+    create_body(pTodoItem){
+        
+        // Create Todo Item title
+        let title = pTodoItem.title
+        const title_element = document.createElement("h2")
+
+        if(pTodoItem.isChecked)
+            title = "✔ " +  title // add checkmark if completed
+
+        title_element.innerHTML = title
+        
+        // Create description element
+        const desc_element = document.createElement("div")
+        desc_element.classList.add("todo-descr")
+        desc_element.innerHTML = pTodoItem.description
+
+        //create body element
+        const todo_body_element = document.createElement("div")
+        todo_body_element.classList.add("todo-body")
+        todo_body_element.appendChild(title_element)
+        todo_body_element.appendChild(desc_element)
+
+        return todo_body_element
+
+    }
+    
+}
