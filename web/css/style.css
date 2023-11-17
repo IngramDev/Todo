@@ -1,0 +1,80 @@
+h1{
+    text-align: center;
+}
+.todo-item{
+    display: grid;
+    grid-template-areas: 
+        " check mid  del";
+    /*grid-template-rows: 3fr 1fr 10fr;*/
+    grid-template-columns: 1fr 10fr 1fr;
+    align-items: center;
+    justify-items: center;
+    border-radius: 10px;
+}
+.todo-item:hover{
+    background-color: rgba(3, 5, 2, 50%);
+}
+.done:hover{
+    background-color: #005895;
+    color: white;
+}
+.todo-checkmark{
+    grid-area: check;
+    font-size: x-large;
+    cursor: pointer;
+}
+.todo-checkmark i:before{
+    content: '\f0c8';
+}
+.todo-checkmark:hover{
+    text-shadow: 1px 1px 2px black;
+}
+.done .todo-checkmark:hover{
+    color: black;
+    text-shadow: 1px 1px 2px white;
+}
+.todo-delete{
+    grid-area: del;
+    font-size: x-large;
+    cursor: pointer;
+}
+.todo-delete:hover i:before{
+    content: '\f2ed';
+}
+.todo-delete:hover{
+    color: #900;
+    text-shadow: 1px 1px 2px #aa1;
+}
+
+.done .todo-delete:hover{
+    color: #d00;
+    text-shadow: 1px 1px 2px #fff;
+}
+.todo-body{
+    grid-area: mid;
+    margin-bottom: 2em;
+    padding-left: 2em;
+    width: 100%;
+}
+
+/*
+*       Actions  Bar 
+*/
+#actions{
+    display: flex;
+    justify-content: space-around;
+    
+}
+#actions i{
+    padding: 1.5em;
+    color: gray;
+    font-size: large;
+}
+#actions i.active{
+    color: black;
+}
+#actions i.active:hover{
+    background-color: black;
+    color: white;
+    border-radius: 35%;
+}
